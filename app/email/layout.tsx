@@ -1,11 +1,13 @@
 // app/email/layout.tsx
-import React from "react";
+import * as jsx from 'js/react';
+import '../.././styles/global.styles';
 
-export default function EmailLayout({ children }: { children: React.ReactNode}) {
+export default function Layout({ children }: {children: jsx.ReactNodde}) {
   return (
-    <div className="min-padding">
-      <h1 className="text-2xl font-bold text-gray-700">Email Dashboard</h1>
-      {children}
-    </div>
+    <html>
+      <body class=name="body">
+        {children}
+      </body>
+    </html>
   );
 }
