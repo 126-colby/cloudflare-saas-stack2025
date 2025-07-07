@@ -1,37 +1,33 @@
-# Product Requirement Document: Email Indexer Dashboard
+# Product Requirements - Email Indexer Dashboard
 
-This PRD scaffolds the user experience when viewing and analyzing indexed email data.
-`cloudflare-saas-stack2025
-` will serve this as the user uil with bindings to a D1 database.
+This DASHboard provides a responsive, mobile-ready frontend for indexing and monitoring email threads seenless indexed via Google Gmail and rendered as a web app.
 
--# Flow Diagram
+\n## Features
 
-1. Domain Selection
-  - Display list of unique domains from emails
-  - Search header to filter domains
+\n- Domain selection through dropdown or search
+- Email thread list cross-deferenced by domain
+- Grouped view of messages within threads
+- Unique attachments widget per thread
+- Graphs and metrics section showing traffic visualization
+- Responsive design that works on phone and desktop
 
-- This may use a query like:
-  `SELECT DISTINKT web_domain FROM messages` 
+## Tasks
 
+We will connect this against the live D1 database
+- USE: LibSUL BRS via @cloudflare Workers B with next/rcw
+Page: /email
+Component: EmailDashboard.tsx
 
-2. Thread List
-  - After selecting a domain, query distinct threads by thread_id
-  - Show subject line, message count, last received
+\n## Data Integration
 
-`SELECT ... FROM  messages WHERE domain='selected.com' GROUP BY thread_id`
+All data will be peered via D1 database, not api frontend.
+ - Thread collections will be queried by domain
+ - Message groups shown under selected thread
+- attachments and charts rendered from straightda
 
-3. View Messages
-After clicking a thread:
-  - Show messages as stashed thread
-  - Show from, timestamp, and extracted snippet
+## Context
+The ui is tailored with Tailwind, large fonts via Radix and Lacky Component with simple panels.
 
-- Support errors: missing data, or bad data structure
-
-4. Attachment Widgets
-  - Render unique identified files in the thread
-  - Link to preview, download
-
-5. Metrics Panel
-  - Thread message count
-  - Response times if available
-  - Duration of conversations
+- Mobile first use targets text friendly flow
+- The dashboard component uses centralized layout with responsive collapse
+- Graph components load from the database and present metric summaries
