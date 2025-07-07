@@ -1,13 +1,9 @@
-// app/email/layout.tsx
-import * as jsx from 'js/react';
-import '../.././styles/global.styles';
+import { ReactNode } from 'react';
 
-export default function Layout({ children }: {children: jsx.ReactNodde}) {
+export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <html>
-      <body class=name="body">
-        {children}
-      </body>
-    </html>
+    <div class=\"email-layout\">
+      {children}
+    </div>
   );
 }
