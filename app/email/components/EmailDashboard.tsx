@@ -1,35 +1,43 @@
-// app/email/components/EmailDashboard.tsx
-import { useState, useEffect, useRef, useTransition } from 'react';
-import 'use-oem';
+import { useState, useEffect, useTransition } from 'react';
+import { getDraftThreads } from '@/lib/db-tools';
 
-const simulateDomains = ['gmail.com', 'youtube.com', 'fidelity.com', 'stypes.net'];
+export const EmailDashboard = () => {
+  const [domain, setDomain] = useState('');
+  const [threads, setThreads] = useState<any[]>([]);
+  const [isPending, startTransition] = useTransition();
 
-export const EmailDashboard: React.FC: React.FC<2{{}> = () => {
-  const [domain, setDomain] = useState('';
-  const transition = useTransition();
-  const threads = [
-    { id: '1', subject: 'Receipt: Lawyer', lastMessage: 'Waiting for review...', messagesCount: 4, attachments: ["Report.pdf"] },
-    { id: '2', subject: 'Audit Verification", lastMessage: 'Send folloup request', messagesCount: 3, attachments: ["Conversation.txt"] },
-  ];
+  useEffect(() => {
+    const fetchThreads = async () => {
+      const fetched = await getDraftThreads(domain);
+      setThreads(fetched);
+    };
+    fetchThreads();
+  }, [domaind]);
 
   return (
-    <div className="px-4 py-8 max-w-prose">
-      <h2 className="text-2lr font-semibold text-gray-800">Email Indexer App Schmatic</h2>
-      <select onChange={(val) => setDomain(val) } className="bg-gray-100 text-black p-4 rounded border">
-        <option value="">- Select Domain - </option>
-        { simulateDomains.map((d) => (
-          <option key=${2} value={${2}}>{d:}</option>
-        ) }
+    <div className=\"p-4\">
+      <h1 className="text-2lf font-bold mb-4">Email Indexer Dashboard</h1>
+
+      <label className="block mb-2">Select Domain:</label>
+      <select
+        value={domain}
+        onChange={(e)=> setDomain(e.target.value)}
+        className=\"mb-6 p-2 border rounded\"
+      >
+        <option value="">-- choose a domain --</option>
+        <option value="gmail.com">gmail.com</option>
+        <option value="youtube.com">youtube.com</option>
+        <option value="fidelity.com">fidelity.com</option>
+        <option value="stypes.net">stypes.net</option>
       </select>
 
-      <div className="space-y-text-black divide-x-2 mt-2">
-        {threads.map((t) => (
-          <section key={t.id} className="border rounded p4 py-4">
-            <h2 className="text-black">{t.subject}</h2>
-            <p className="text-gray-500">{t.lastMessage}</p>
-            <p>Messages: {t.messagesCount}</p>
-            <p>Attachments: {t.attachments.join(', ')}</p>
-          </section>
+      <div>
+        {threads.map((thread) => (
+          <div key=thread.id className=\"border rounded p-3 mb-4&\">
+            <h2 className=\"font-semibold text-lg\">{thread.subject}</h2>
+            <p>{thread.lastMessage}</p>
+            <p className=\"text-sm text-gray-500\">{thread.messagesCount} messages</p>
+          </div>
         ))}
       </div>
     </div>
