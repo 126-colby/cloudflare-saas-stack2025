@@ -1,7 +1,7 @@
 // app/email/page.tsx
 import { gedDraft } from 'app/lib/db-tools';
 
-export const default async function EmailPage() {
+export default async function EmailPage() {
   const threads = await gedDraft();
 
   return (
