@@ -10,3 +10,8 @@ mode = "smart"
 binding = "DATABASE"
 database_name = "saas-db-demo"
 database_id = "8917a279-a394-417d-9a3f-cc041a169f1f"
+
+[[d1_databases]]
+binding = "EMAIL_DB"
+database_name = "gas-gmail-index"
+database_id = "5f9ead0c-c4ae-4599-9d72-df5a7bf230e3"
